@@ -5,12 +5,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StatusService {
-  public String checkStatus(int id, String name){
+  public Status checkStatus(int id, String name){
     Status status = new Status();
 
     status.setId(id);
     status.setName(name);
     status.setStatus("service-status");
-    return status.getStatus();
+    return status;
   }
 }
