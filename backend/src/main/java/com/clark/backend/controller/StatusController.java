@@ -5,25 +5,34 @@ import com.clark.backend.services.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/api")
-public class StatusController {
+import java.util.List;
 
+@RestController
+@RequestMapping("/api/status")
+public class StatusController {
+  @Autowired
   StatusService statusService;
 
-  @PostMapping("/status")
-  public String checkStatus(@RequestParam int id, @RequestParam String name){
-    return "test";
+  @PostMapping("/register")
+  public StatusEntity createStatus(@RequestBody StatusEntity statusEntity) {
+    System.out.println("Recieved name: "+ statusEntity.getName());
+    System.out.println("Recieved name: "+ statusEntity.getStatus());
+    return statusService.saveStatus(statusEntity);
   }
 
-  @GetMapping("/getstatus")
-  public StatusEntity get(){
-    return statusService.checkStatus(1, "clark");
+  @GetMapping("/get/{id}")
+  public StatusEntity getStatusById(@PathVariable int id) {
+    return statusService.getStatusById(id);
   }
 
-  @GetMapping("/gettest")
-  public String gettest(){
-    return "Hello!";
+  @GetMapping("/getall")
+  public List<StatusEntity> getAllStatuses() {
+    return statusService.getAllStatuses();
+  }
+
+  @DeleteMapping("/delete/{id}")
+  public void deleteStatus(@PathVariable int id) {
+    statusService.deleteStatus(id);
   }
 
 }
