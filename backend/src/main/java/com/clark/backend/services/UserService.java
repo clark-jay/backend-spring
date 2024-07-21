@@ -18,15 +18,6 @@ public class UserService {
   @Autowired
   private PasswordEncoder passwordEncoder;
 
-  @PostConstruct
-  public void init() {
-    // Ensure there is only one unique admin user
-    Optional<UserEntity> admin = userRepository.findByRole("ADMIN");
-    if (admin.isPresent()) {
-      throw new IllegalStateException("Admin user already exists");
-    }
-  }
-
   public UserEntity registerNewUser(UserEntity user) {
     if ("ADMIN".equals(user.getRole()) && userRepository.findByRole("ADMIN").isPresent()) {
       throw new IllegalStateException("Admin user already exists");
