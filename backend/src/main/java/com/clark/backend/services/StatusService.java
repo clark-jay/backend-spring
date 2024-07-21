@@ -1,16 +1,30 @@
 package com.clark.backend.services;
 
-import com.clark.backend.model.Status;
+import com.clark.backend.model.StatusEntity;
+import com.clark.backend.repository.StatusRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class StatusService {
-  public String checkStatus(int id, String name){
-    Status status = new Status();
+  @Autowired
+  private StatusRepository statusRepository;
 
-    status.setId(id);
-    status.setName(name);
-    status.setStatus("service-status");
-    return status.getStatus();
+  public StatusEntity saveStatus(StatusEntity statusEntity) {
+    return statusRepository.save(statusEntity);
+  }
+
+  public StatusEntity getStatusById(int id) {
+    return statusRepository.findById((long)id).orElse(null);
+  }
+
+  public List<StatusEntity> getAllStatuses() {
+    return statusRepository.findAll();
+  }
+
+  public void deleteStatus(int id) {
+    statusRepository.deleteById((long)id);
   }
 }
