@@ -2,7 +2,7 @@ package com.clark.backend.model;
 import lombok.Data;
 
 @Data
-public class Status {
+public class StatusEntity {
   private int id;
   private String name;
   private String status;
